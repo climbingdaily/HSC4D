@@ -14,8 +14,7 @@ More data and description is coming ...
 ## Copyright
 The HSC4D dataset is published under the [Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License](https://creativecommons.org/licenses/by-nc-sa/3.0/).You must attribute the work in the manner specified by the authors, you may not use this work for commercial purposes and if you alter, transform, or build upon this work, you may distribute the resulting work only under the same license. Contact us if you are interested in commercial usage.
 
-## Citation
-If you use HSC4D, please cite this:
+## Bibtex
 ```
 @misc{dai2022hsc4d,
     title={HSC4D: Human-centered 4D Scene Capture in Large-scale Indoor-outdoor Space Using Wearable IMUs and LiDAR},
