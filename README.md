@@ -9,14 +9,14 @@ More codes and dataset are coming soon.
 
 <img style="border-radius: 0.3125em;
 box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
-src="climbingdaily.github.io/images/overview.png">
+src="climbingdaily/climbingdaily.github.io/images/overview.png">
 <br>
 <div style="color:orange; border-bottom: 0px solid #d9d9d9;
 display: inline-block;
 color: #999;
 padding: -2px;">3D human motions with accurate localization in diverse, challenging scenes. The top line shows a person walking from indoor to outdoor. The bottom row figures show the challenge cases, where the bottom right figure is the rock climbing's third-view from the camera. </div>
 
-## Video
+<!-- ## Video
 <iframe 
 width="800" 
 height="450" 
@@ -26,7 +26,7 @@ src="https://www.youtube.com/embed/IY9FikM__i8" title="YouTube video player"
 frameborder="no" 
 allowfullscreen="true"
 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
-</iframe>
+</iframe> -->
 
 ## Dataset
 sequence1: [campus_raod](https://drive.google.com/file/d/1fznVjBwezkJyRoTTEjxNBp7uJBaPgAJB/view?usp=sharing)
