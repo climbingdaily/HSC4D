@@ -9,7 +9,7 @@ More codes and dataset are coming soon.
 
 <img style="border-radius: 0.3125em;
 box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
-src="climbingdaily/climbingdaily.github.io/images/overview.png">
+src="https://github.com/climbingdaily/climbingdaily.github.io/images/overview.png">
 <br>
 <div style="color:orange; border-bottom: 0px solid #d9d9d9;
 display: inline-block;
@@ -29,9 +29,8 @@ allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; pic
 </iframe> -->
 
 ## Dataset
-sequence1: [campus_raod](https://drive.google.com/file/d/1fznVjBwezkJyRoTTEjxNBp7uJBaPgAJB/view?usp=sharing)
-
-More data and description is coming...
+sequence1: [campus_raod](https://drive.google.com/file/d/1fznVjBwezkJyRoTTEjxNBp7uJBaPgAJB/view?usp=sharing)\
+More data and description is coming ...
 
 ## Copyright
 The HSC4D dataset is published under the [Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License](https://creativecommons.org/licenses/by-nc-sa/3.0/).You must attribute the work in the manner specified by the authors, you may not use this work for commercial purposes and if you alter, transform, or build upon this work, you may distribute the resulting work only under the same license. Contact us if you are interested in commercial usage.
