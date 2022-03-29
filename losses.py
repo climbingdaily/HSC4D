@@ -73,7 +73,7 @@ def find_stable_foot(smpl_verts, translations, pre_smpl = None):
     
     states = []
     for i in range(lt_move.shape[0]):
-        # 如果两个脚都位移都小于2cm，则认为双脚是 stable
+        # If both feet's moving distance < 2cm, set as stable
         if rfoot_move[i] <= 0.01 and lfoot_move[i] <= 0.01:
             states.append(0)
         elif lfoot_move[i] <= 0.01:
@@ -81,7 +81,7 @@ def find_stable_foot(smpl_verts, translations, pre_smpl = None):
         elif rfoot_move[i] <= 0.01:
             states.append(1)   # right foot stable
         else:
-            states.append(-2) # 同时在移动，不认为是在步行
+            states.append(-2) # bad case (foot sliding)
     states = np.asarray(states, dtype=np.int32)
 
     while True:

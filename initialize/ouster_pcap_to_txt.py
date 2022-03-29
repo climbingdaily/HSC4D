@@ -99,7 +99,7 @@ def pcap_to_txt(source: client.PacketSource,
         if len(valid) > 20000:
             save_frame = frame_data[valid][:, [0, 1, 2, 4, 7, 8, 5]]   #Point:0 Point:1 Point:2 Reflectivity Timestamp Channel
             save_frame[:, 4] = save_frame[:, 4] / 1e9       # nano second -> second
-            order = np.argsort(save_frame[:, 4]).tolist()      # 以时间进行排序
+            order = np.argsort(save_frame[:, 4]).tolist()      # sort by time
             save_frame = save_frame[order] 
             # np.savetxt(save_path, save_frame, fmt=field_fmts)
             
