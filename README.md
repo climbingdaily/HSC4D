@@ -1,9 +1,9 @@
 # HSC4D: Human-centered 4D Scene Capture in Large-scale Indoor-outdoor Space Using Wearable IMUs and LiDAR. CVPR 2022
 [[Project page](https://climbingdaily.github.io/hsc4d/) | [Video](https://www.youtube.com/watch?v=IY9FikM__i8)]
 
-<div align=center>
+<!-- <div align=center>
 <img src = "https://github.com/climbingdaily/HSC4D/blob/main/images/logo.png" width=85%/> </div>
-<br>
+<br> -->
 <div align=center>
 <img src = "https://climbingdaily.github.io/images/overview.png"/></div>
 
@@ -22,29 +22,29 @@ padding: -2px;">The large indoor and outdoor scenes in our dataset. <strong>Left
 - More data is coming ...
 
 ## Data structure
-```terminal
-Dataset root
-├── climbing_gym
+```ruby
+Dataset root/
+├── climbing_gym/
 |  ├── climbing_gym.bvh
-|  ├── climbing_gym_pos.csv
-|  ├── climbing_gym_rot.csv
+|  ├── climbing_gym_pos.csv # Every joint's roration
+|  ├── climbing_gym_rot.csv # Every joint's translation
 |  ├── climbing_gym.pcap
 |  └── climbing_gym_lidar_trajectory.txt 
 | 
-├── lab_building
+├── lab_building/
 |  ├── lab_building.bvh
 |  ├── lab_building_pos.csv
 |  ├── lab_building_rot.csv
 |  ├── lab_building.pcap
 |  └── lab_building_lidar_trajectory.txt 
 |  
-├── campus_road
+├── campus_road/
 |  ├── campus_road.bvh
 |  ├── campus_road_pos.csv
 |  ├── campus_road_rot.csv
 |  ├── campus_road.pcap
 |  └── campus_road_lidar_trajectory.txt 
-└── scenes
+└── scenes/
    ├── climbing_gym.pcd
    ├── climbing_gym_ground.pcd
    ├── lab_building.pcd
