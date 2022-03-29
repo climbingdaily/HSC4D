@@ -1,5 +1,9 @@
 # HSC4D: Human-centered 4D Scene Capture in Large-scale Indoor-outdoor Space Using Wearable IMUs and LiDAR. CVPR 2022
 [[Project page](https://climbingdaily.github.io/hsc4d/) | [Video](https://www.youtube.com/watch?v=IY9FikM__i8)]
+
+<div align=center>
+<img src = "https://github.com/climbingdaily/HSC4D/blob/main/images/logo.png" width=85%/> </div>
+<br>
 <div align=center>
 <img src = "https://climbingdaily.github.io/images/overview.png"/></div>
 
