@@ -22,7 +22,7 @@ padding: -2px;">The large indoor and outdoor scenes in our dataset. <strong>Left
 - More data is coming ...
 
 ## Data structure
-```ruby
+```terminal
 Dataset root/
 ├── climbing_gym/
 |  ├── climbing_gym.bvh
