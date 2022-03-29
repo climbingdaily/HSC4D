@@ -1,5 +1,9 @@
-# HSC4D: Human-centered 4D Scene Capture in Large-scale Indoor-outdoor Space Using Wearable IMUs and LiDAR. CVPR 202 <br>[[Project page](https://climbingdaily.github.io/hsc4d/) | [Video](https://www.youtube.com/watch?v=IY9FikM__i8)]
+# HSC4D: Human-centered 4D Scene Capture in Large-scale Indoor-outdoor Space Using Wearable IMUs and LiDAR. CVPR 2022
+[[Project page](https://climbingdaily.github.io/hsc4d/) | [Video](https://www.youtube.com/watch?v=IY9FikM__i8)]
+<div align=center>
+<img src = "https://climbingdaily.github.io/images/overview.png"/></div>
 
+## Dataset
 <div align=center>
 <img src = "https://github.com/climbingdaily/HSC4D/blob/main/images/hsc4d_dataset.gif"/>
 </div>
@@ -8,7 +12,6 @@ display: inline-block;
 color: #999;
 padding: -2px;">The large indoor and outdoor scenes in our dataset. <strong>Left</strong>: a climbing gym (1200 m<sup>2</sup>). <strong>Middle</strong>: a lab building with an outside courtyard 4000 m<sup>2</sup>. <strong>Right</strong>: a loop road scene 4600 m<sup>2</sup> </div>
 
-## Dataset
 - sequence1: [campus_raod](https://drive.google.com/file/d/1fznVjBwezkJyRoTTEjxNBp7uJBaPgAJB/view?usp=sharing)
 - sequence2: [climbing_gym]
 - sequence3: [lab_building]
