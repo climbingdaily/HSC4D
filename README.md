@@ -10,7 +10,6 @@
 
 
 # Getting start
----
 ## Dataset (Click [here](https://drive.google.com/drive/folders/1c6iGtqcAhPmzSsoep-WB-g_kJQjMZl-t?usp=sharing) to download)
 <div align=center>
 <img src = "https://github.com/climbingdaily/HSC4D/blob/main/images/hsc4d_dataset.gif"/>
