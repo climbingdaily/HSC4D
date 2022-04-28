@@ -114,9 +114,9 @@ if __name__ == '__main__':
 
     from _import_ import config_parser
     parser = config_parser()
-    parser.add_argument("--start_idx", type=int, default=0)
-    parser.add_argument("--end_idx", type=int, default=-1)
-    parser.add_argument("--pcap_path", type=str, default=None)
+    parser.add_argument("--start_idx", "-S", type=int, default=0)
+    parser.add_argument("--end_idx", "-E", type=int, default=-1)
+    parser.add_argument("--pcap_path", "-P", type=str, default=None)
     args = parser.parse_args()
 
     print('Processing pcap...')

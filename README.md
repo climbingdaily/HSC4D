@@ -89,11 +89,15 @@ data_name = campus_road # or lab_building, climbing_gym
 
 
 - ### LiDAR mapping [Optional, data provided]
-  - `pcap` file processing
+- 
+  - Input:   `campus_road.pcap`
+  - Run:
     ```bash
+    cd initialize
     pip install ouster-sdk 
-    python ouster_pcap_to_txt.py -P /pcap_path [-S start_frame] [-E end_frame]
+    python ouster_pcap_to_txt.py -P /your/pcap/file/path [-S start_frame] [-E end_frame]
     ```
+  - Output: campus_road__lidar_frames/[time_stamp].txt
   - Run your Mapping/SLAM algorithm.
   
   - Coordinate alignment (About 5 degree error after this step)
