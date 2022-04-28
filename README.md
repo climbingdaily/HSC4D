@@ -79,23 +79,19 @@ data_name = campus_road # or lab_building, climbing_gym
   ```
 ## Preprocess
 - ### Transfer Mocap data [Optional, data provided]
-  - **Input**: `campus_road.bvh`
-  - **Command**: 
-      ```python
-      pip install bvhtoolbox # https://github.com/OlafHaag/bvh-toolbox
-      bvh2csv [bvh_path]
-      ```
+    ```bash
+    pip install bvhtoolbox # https://github.com/OlafHaag/bvh-toolbox
+    bvh2csv /your/path/to/campus_road.bvh
+    ```
   - **Output**: `campus_road_pos.csv`, `campus_road_rot.csv`
 
 
 - ### LiDAR mapping [Optional, data provided]
-- 
-  - Input:   `campus_road.pcap`
-  - Run:
+  - Process pcap file
     ```bash
     cd initialize
     pip install ouster-sdk 
-    python ouster_pcap_to_txt.py -P /your/pcap/file/path [-S start_frame] [-E end_frame]
+    python ouster_pcap_to_txt.py -P /your/path/to/campus_road.pcap [-S start_frame] [-E end_frame]
     ```
   - Output: campus_road__lidar_frames/[time_stamp].txt
   - Run your Mapping/SLAM algorithm.
@@ -106,6 +102,7 @@ data_name = campus_road # or lab_building, climbing_gym
     2. Rotate the scene cloud to make its $Z$-axis perpendicular to the starting position's ground. 
     3. Translate the scene to make its origin to the first SMPL model's origin on the ground. 
     4. LiDAR's ego motion $T^W$ and $R^W$ are translated and rotated as the scene does. 
+  - Output: `campus_road_lidar_trajectory.txt`, `scenes/campus_road.pcd`
     
 - ### Data preprocessing for optimization. 
   ```bash
