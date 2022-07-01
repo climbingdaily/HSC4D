@@ -10,7 +10,7 @@
 
 
 # Getting start
-## Dataset (Click [here](https://drive.google.com/drive/folders/1c6iGtqcAhPmzSsoep-WB-g_kJQjMZl-t?usp=sharing) to download)
+## Dataset (Click [here](http://www.lidarhumanmotion.net/data-hsc4d/) to download)
 <div align=center>
 <img src = "https://github.com/climbingdaily/HSC4D/blob/main/images/hsc4d_dataset.gif"/>
 </div>
@@ -110,7 +110,7 @@ data_name = campus_road # or lab_building, climbing_gym
   ```
 
 ## Data fusion
-***To be added***
+***Coming soon***
 
 ## Data optimization
 ```bash
@@ -119,9 +119,7 @@ python main.py --config configs/sample.cfg
 
 
 ## Visualization
-***To be added***
-
-
+***Coming soon***
 
 
 ## Copyright
@@ -130,13 +128,13 @@ The HSC4D dataset is published under the [Creative Commons Attribution-NonCommer
 
 
 ## Bibtex
-```
-@misc{dai2022hsc4d,
-    title={HSC4D: Human-centered 4D Scene Capture in Large-scale Indoor-outdoor Space Using Wearable IMUs and LiDAR},
-    author={Yudi Dai and Yitai Lin and Chenglu Wen and Siqi Shen and Lan Xu and Jingyi Yu and Yuexin Ma and Cheng Wang},
-    year={2022},
-    eprint={2203.09215},
-    archivePrefix={arXiv},
-    primaryClass={cs.CV}
+```bash
+@InProceedings{Dai_2022_CVPR,
+    author    = {Dai, Yudi and Lin, Yitai and Wen, Chenglu and Shen, Siqi and Xu, Lan and Yu, Jingyi and Ma, Yuexin and Wang, Cheng},
+    title     = {HSC4D: Human-Centered 4D Scene Capture in Large-Scale Indoor-Outdoor Space Using Wearable IMUs and LiDAR},
+    booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+    month     = {June},
+    year      = {2022},
+    pages     = {6792-6802}
 }
 ```
