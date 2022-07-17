@@ -1,0 +1,6 @@
+[submodule "visulization_tool"]
+	path = visulization_tool
+	url = https://github.com/climbingdaily/vis_lidar_human_scene
+[submodule "vis_lidar_human_scene"]
+	path = vis_lidar_human_scene
+	url = https://github.com/climbingdaily/vis_lidar_human_scene.git
