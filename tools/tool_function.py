@@ -14,7 +14,6 @@ import shutil
 
 from . import get_pose_from_bvh, save_ply
 
-
 def toRt(r, t):
     '''
     transfrom 3*3 rotation matrix to 4*4
