@@ -10,16 +10,10 @@ from multiprocessing import Pool
 import open3d as o3d
 import torch
 import json
-
-sys.path.append(os.path.dirname(os.path.split(os.path.abspath( __file__))[0]))
-from smpl.skele2smpl import get_pose_from_bvh
-from smpl.generate_ply import save_ply
 import shutil
 
-TRANSFORM_MOCAP = np.array([
-    [-1, 0, 0],
-    [0, 0, 1], 
-    [0, 1, 0]])
+from . import get_pose_from_bvh, save_ply
+
 
 def toRt(r, t):
     '''
@@ -34,33 +28,6 @@ def save_smpl(count, start_idx, smpl_out_dir, smpl_models, label=''):
     ply_save_path = os.path.join(smpl_out_dir, str(int(count + start_idx)) + '_smpl' + label + '.ply')
     save_ply(smpl_models[count], ply_save_path)
     print(f'\rSave ply in {ply_save_path}', end="", flush=True)
-
-def load_scene(dataset_root, data_name):
-    scene_file = os.path.join(dataset_root, 'Scenes', data_name + '.pcd')
-    print('Loading scene point cloud in: ', scene_file)
-    normals_file = os.path.join(dataset_root, 'Scenes', data_name + '_normals.pkl')   
-    # sub_scene_file = os.path.join(dataset_root, data_name + '_sub_scene.pcd')
-    # sub_normals_file = os.path.join(filedataset_rootpath, data_name + '_sub_scene_normals.txt')   
-
-    scene_point_cloud = o3d.io.read_point_cloud(scene_file)
-    # points = np.asarray(scene_point_cloud.points)
-    
-    kdtree = o3d.geometry.KDTreeFlann(scene_point_cloud)
-    if not os.path.exists(normals_file):
-        print('Estimating normals...')
-        scene_point_cloud.estimate_normals(search_param=o3d.geometry.KDTreeSearchParamKNN(knn=40))
-        normals = np.asarray(scene_point_cloud.normals)
-        with open(normals_file, 'wb') as f:
-            pkl.dump(normals, f)
-        print('Save scene normals in: ', normals_file)
-    else:
-        with open(normals_file, 'rb') as f:
-            normals = pkl.load(f)
-        scene_point_cloud.normals = o3d.utility.Vector3dVector(normals)
-
-    print(scene_point_cloud)
-    return scene_point_cloud, kdtree
-
 
 def multiprocess_save_smpl_model(start_idx, smpl_models, file_path, data_name, step = 1, label=''):
     savedir = os.path.join(file_path, 'SMPL')
@@ -112,40 +79,6 @@ def data_from_json(file_path, name='betas'):
     data = read_json_file(beta_file)
     return data[name]
 
-def mocap_to_smpl_axis(mocap_init, mocap_rots):
-    col_file = "/".join(os.path.abspath(__file__).split('/')[:-1]) + '/col_name.txt'
-    with open (col_file, 'r') as col:
-        csv_columns = col.readlines()
-    new_rot_csv = pd.DataFrame(mocap_rots, columns = [col.strip() for col in csv_columns])
-    mocap_smpl_rots = np.empty(shape=(0, 72))
-    
-    for count in range(mocap_rots.shape[0]):
-        pp = get_pose_from_bvh(new_rot_csv, count, False).reshape(1,-1)
-        mocap_smpl_rots = np.concatenate((mocap_smpl_rots, pp))
-    '''
-    mocap_smpl_rots = np.empty(shape=(mocap_rots.shape[0], 0))
-    RADIAN = 57.2957795131
-    for idx in mocap_init["mocap_to_smpl_order"]:
-        if idx >= 0:
-            mocap_euler = mocap_rots[:, idx:idx+3]
-            if idx == mocap_init['LeftShoulder']: #108
-                mocap_euler[:, 2] -= 0.3 * RADIAN
-            elif idx == mocap_init['RightShoulder']: # 39
-                mocap_euler[:, 2] += 0.3 * RADIAN
-            elif idx == mocap_init['LeftArm']: # 111
-                mocap_euler[:, 2] += 0.3 * RADIAN
-            elif idx == mocap_init['RightArm']: # 42
-                mocap_euler[:, 2] -= 0.3 * RADIAN
-
-            mocap_euler = R.from_euler(
-                'yxz', mocap_euler, degrees=True).as_rotvec()
-            mocap_smpl_rots = np.concatenate((mocap_smpl_rots, mocap_euler), axis=1)
-        else:
-            mocap_smpl_rots = np.concatenate((mocap_smpl_rots, np.zeros((mocap_rots.shape[0], 3))), axis=1)
-    '''
-    return mocap_smpl_rots
-
-    
 def axis_angle_to_quaternion(axis_angle):
     """
     pytroch version
@@ -226,6 +159,17 @@ def axis_angle_to_matrix(axis_angle):
 
     
 def save_traj_in_dir(save_dir, data, comments):
+    """
+    It saves the trajectory data in a file in the specified directory
+    
+    Args:
+      save_dir: the directory where you want to save the trajectory
+      data: the data to be saved
+      comments: a string that will be used to name the file
+    
+    Returns:
+      The save_file is being returned.
+    """
     save_file = os.path.join(save_dir, comments + '.txt')
     field_fmts = ['%d', '%.6f', '%.6f', '%.6f', '%.6f', '%.6f', '%.6f', '%.6f', '%.3f']
     np.savetxt(save_file, data, fmt=field_fmts)
@@ -233,6 +177,18 @@ def save_traj_in_dir(save_dir, data, comments):
     return save_file
 
 def set_lidar_offset(init_json, synced_lidar, synced_mocap_trans):
+    """
+    > The function `set_lidar_offset` takes in the initial json file, the synced lidar data, and the
+    synced mocap data, and returns the lidar offset vector in the lidar coordinate
+    
+    Args:
+      init_json: the path to the initialization json file
+      synced_lidar: the lidar data that has been synced with the mocap data
+      synced_mocap_trans: the translation of the mocap at each time step
+    
+    Returns:
+      The lidar offset in lidar coordinate
+    """
     meta_init = read_json_file(init_json)
     if('lidar_offset' in meta_init.keys()):
         lidar_offset = np.asarray(meta_init['lidar_offset'])
@@ -257,6 +213,15 @@ def set_lidar_offset(init_json, synced_lidar, synced_mocap_trans):
     return lidar_offset
 
 def save_synced_data(synced_pos, synced_rot, synced_lidar, save_dir):
+    """
+    It takes in the synced position, rotation, and lidar data, and saves it to a pickle file
+    
+    Args:
+      synced_pos: a list of numpy arrays, each of shape (num_frames, 3)
+      synced_rot: a list of numpy arrays, each of shape (num_frames, 3, 3)
+      synced_lidar: a list of numpy arrays, each array is a point cloud of shape (N, 3)
+      save_dir: the directory where you want to save the data
+    """
     save_file = os.path.join(save_dir, 'synced_data_for_optimization.pkl')
     synced_mocap = {
         'synced_pos': synced_pos,
@@ -269,6 +234,14 @@ def save_synced_data(synced_pos, synced_rot, synced_lidar, save_dir):
         print('\tsave synced data for optimization data in: ', save_file)
 
 def compute_traj_params(mocap, lidar, init_params = None):
+    """
+    It computes the trajectory lengths for both the LiDAR and the mocap data
+    
+    Args:
+      mocap: the trajectory of the mocap system
+      lidar: the LiDAR trajectory
+      init_params: dictionary of initial parameters for the optimization
+    """
     mocap_traj_length = np.linalg.norm(mocap[1:] - mocap[:-1], axis=1).sum()
     lidar_traj_length = np.linalg.norm(lidar[1:] - lidar[:-1], axis=1).sum()
 
@@ -296,6 +269,17 @@ def compute_traj_params(mocap, lidar, init_params = None):
     return mocap_traj_length, lidar_traj_length, mocap_XY_length, lidar_XY_length, init_params
 
 def move_file_to_dir(dst, src_file, label=None):
+    """
+    > Move a file to a directory, and return the new path
+    
+    Args:
+      dst: the destination directory
+      src_file: the file to be moved
+      label: the label of the file, if you want to rename it.
+    
+    Returns:
+      The new file path.
+    """
     if label:
         _src_file = os.path.join(dst, label)
     else:
@@ -303,58 +287,3 @@ def move_file_to_dir(dst, src_file, label=None):
     shutil.move(src_file, _src_file)
     print(f'\tMove to {_src_file}')
     return _src_file
-
-def rigid_transform_3D(A, B):
-    # https://github.com/nghiaho12/rigid_transform_3D/blob/master/rigid_transform_3D.py
-    # Input: expects 3xN matrix of points
-    # Returns R,t
-    # R = 3x3 rotation matrix
-    # t = 3x1 column vector
-    # R * A + t = B
-    assert A.shape == B.shape
-    # =======================
-    A = A.copy()
-    B = B.copy()
-    A[2] = 0  # Just for xy plane
-    B[2] = 0
-    # =======================
-    num_rows, num_cols = A.shape
-    if num_rows != 3:
-        raise Exception(f"matrix A is not 3xN, it is {num_rows}x{num_cols}")
-
-    num_rows, num_cols = B.shape
-    if num_rows != 3:
-        raise Exception(f"matrix B is not 3xN, it is {num_rows}x{num_cols}")
-
-    # find mean column wise
-    centroid_A = np.mean(A, axis=1)
-    centroid_B = np.mean(B, axis=1)
-
-    # ensure centroids are 3x1
-    centroid_A = centroid_A.reshape(-1, 1)
-    centroid_B = centroid_B.reshape(-1, 1)
-
-    # subtract mean
-    Am = A - centroid_A
-    Bm = B - centroid_B
-
-    H = Am @ np.transpose(Bm)
-
-    # sanity check
-    #if linalg.matrix_rank(H) < 3:
-    #    raise ValueError("rank of H = {}, expecting 3".format(linalg.matrix_rank(H)))
-
-    # find rotation
-    U, S, Vt = np.linalg.svd(H)
-    R = Vt.T @ U.T
-
-    # special reflection case
-    if np.linalg.det(R) < 0:
-        print("det(R) < R, reflection detected!, correcting for it ...")
-        Vt[-1,:] *= -1
-        R = Vt.T @ U.T
-        return None, 0
-
-    t = -R @ centroid_A + centroid_B
-
-    return R, t

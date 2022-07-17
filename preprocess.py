@@ -2,14 +2,7 @@ import numpy as np
 import os
 from scipy.spatial.transform import Rotation as R
 
-from process_data.get_mocap_trans import get_mocap_root
-from process_data.sync_mocap_to_lidar import get_overlap
-from process_data.mocap_to_SMPL import load_csv_data
-
-from tools.compute_foot_moving import detect_jump
-from tools.tool_function import read_json_file, save_json_file, toRt, set_lidar_offset, save_synced_data, compute_traj_params, save_traj_in_dir, move_file_to_dir
-from tools.filter_traj import filterTraj
-
+from tools import read_json_file, save_json_file, toRt, set_lidar_offset, save_synced_data, compute_traj_params, save_traj_in_dir, move_file_to_dir, filterTraj, detect_jump, get_mocap_root, get_overlap, load_csv_data
 
 MOCAP_RATE = 100
 LIDAR_RATE = 20
@@ -133,7 +126,7 @@ if __name__ == '__main__':
     print('7. Saving data')
     # print('=======================================')
 
-    _, pos_data, rot_data = load_csv_data(lidar_file, rotpath, pospath)
+    pos_data, rot_data = load_csv_data(rotpath, pospath)
     save_synced_data(pos_data[mocap_sync_id, 0],
                      rot_data[mocap_sync_id], synced_lidar, save_dir)
 

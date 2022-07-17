@@ -1,18 +1,17 @@
 import numpy as np
-import pandas as pd
 from scipy.signal import find_peaks
 
-
-def load_data(pospath):
-    pos_data_csv = pd.read_csv(pospath, dtype=np.float32)
-
-    pos_data = np.asarray(pos_data_csv) / 100  # cm -> m
-    mocap_length = pos_data.shape[0]
-    pos_data = pos_data[:, 1:].reshape(mocap_length, -1, 3)
-    return pos_data
-
-
 def detect_jump(left_foot, right_foot, prominences = 0.2, width = 100):
+    """
+    > It finds the peaks in the left and right foot data, and then finds the peaks that are close to
+    each other in time and have a large prominence
+    
+    Args:
+      left_foot: the left foot's height data
+      right_foot: the right foot data
+      prominences: the minimum height of the peak, relative to the surrounding troughs.
+      width: the width of the window to look for the minimum value in. Defaults to 100
+    """
     lf_height = np.asarray(left_foot[:50]).mean()
     rf_height = np.asarray(right_foot[:50]).mean()
     left_foot = np.asarray(left_foot- lf_height)

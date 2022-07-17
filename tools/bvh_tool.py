@@ -1,6 +1,5 @@
 import re
 
-
 class BvhNode:
 
     def __init__(self, value=[], parent=None):

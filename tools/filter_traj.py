@@ -18,6 +18,19 @@ def save_in_same_dir(file_path, data, ss):
 
 
 def filterTraj(lidar_file, frame_time=0.05, segment=20 , dist_thresh=0.03, save_type='b', time_interp = False):
+    """
+    The function is used to filter the trajectory of the lidar. The trajectory is filtered by the time
+    interval of the trajectory. The trajectory is interpolated by the time interval of the trajectory.
+    
+    Args:
+      lidar_file: the path to the trajectory file to be filtered
+      frame_time: the time interval between two frames
+      segment: the number of frames to be fitted. Defaults to 20
+      dist_thresh: the distance threshold between the original trajectory and the fitted trajectory.
+      save_type: . Defaults to b
+      time_interp: If true, the frame id will be rearranged, otherwise, the frame id will be recorded as
+    -1. Defaults to False
+    """
     # 1. read data
     lidar = np.loadtxt(lidar_file, dtype=float)
 
